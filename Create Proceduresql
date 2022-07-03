@@ -1,0 +1,23 @@
+CREATE OR REPLACE PROCEDURE P_VALUE_EMPLOYEES ( P_EMPLOYEES_ID NUMBER,
+                                                P_FIRST_NAME VARCHAR2) IS -- Basic Query creating a procedure that will recive data from outsite.
+    V_NAME_EMP HR.EMPLOYEES.FIRST_NAME%TYPE;
+                                                
+  BEGIN
+       
+       SELECT FIRST_NAME 
+       INTO V_NAME_EMP
+       FROM HR.EMPLOYEES
+       WHERE FIRST_NAME = P_FIRST_NAME
+       AND EMPLOYEE_ID = P_EMPLOYEES_ID;
+       
+       IF P_FIRST_NAME = 'Jaqueline' THEN
+        DBMS_OUTPUT.PUT_LINE ('The procedure found the record.');
+        ELSE 
+        DBMS_OUTPUT.PUT_LINE ('The procedure could not find the record.');
+        END IF;
+        
+        EXCEPTION 
+        WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE(SQLERRM);
+        
+  END P_VALUE_EMPLOYEES;
